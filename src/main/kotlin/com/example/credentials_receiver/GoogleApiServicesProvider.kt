@@ -38,8 +38,7 @@ class GoogleApiServicesProvider(
             "StoredCredential" // name from internals of google oauth2 lib. Can't be changed
         private const val temporaryFolder = "./tmp"
         private var environment = "127.0.0.1:8081"
-        private const val clientSecrets =
-            "eyJ3ZWIiOnsiY2xpZW50X2lkIjoiODY5MTc0NDQ5MzE5LWpxODU3aGFxcTVydjh2YTRxNG9hb2lrdXEzNnJrM3JzLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwicHJvamVjdF9pZCI6Im1zLXJwcy1hZ2dyZWdhdG9yIiwiYXV0aF91cmkiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aCIsInRva2VuX3VyaSI6Imh0dHBzOi8vb2F1dGgyLmdvb2dsZWFwaXMuY29tL3Rva2VuIiwiYXV0aF9wcm92aWRlcl94NTA5X2NlcnRfdXJsIjoiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vb2F1dGgyL3YxL2NlcnRzIiwiY2xpZW50X3NlY3JldCI6IkdPQ1NQWC1iaVVEcVRlNng0TDJoODNxd1R3ZnluaFpjUGE2In19"
+        private const val clientSecrets = "paste secret here"
     }
 
     private val docsScopes = listOf(SlidesScopes.PRESENTATIONS, DriveScopes.DRIVE, SheetsScopes.SPREADSHEETS)
@@ -77,7 +76,6 @@ class GoogleApiServicesProvider(
             jsonFactory,
             String(Base64.getDecoder().decode(clientSecrets)).reader()
         )
-        File("$temporaryFolder/$TOKEN_FILE_NAME").delete()
 
         scope.launch {
             googleCredentialsSubflow(clientSecrets)
