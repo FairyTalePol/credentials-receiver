@@ -33,12 +33,12 @@ class GoogleApiServicesProvider(
     companion object {
         private var credential: Credential? = null
         private var googleServices: GoogleServices? = null
-        private const val TOKEN_EXPIRATION_OFFSET = 300 // 300 seconds, 5 Min
         private const val TOKEN_FILE_NAME =
             "StoredCredential" // name from internals of google oauth2 lib. Can't be changed
         private const val temporaryFolder = "./tmp"
         private var environment = "127.0.0.1:8081"
-        private const val clientSecrets = "paste secret here"
+        private var service = "rps"
+        private const val clientSecrets = "base64-encoded client secret"
     }
 
     private val docsScopes = listOf(SlidesScopes.PRESENTATIONS, DriveScopes.DRIVE, SheetsScopes.SPREADSHEETS)
@@ -101,7 +101,7 @@ class GoogleApiServicesProvider(
             .setAccessType("offline")
             .setApprovalPrompt("force")
             .build()
-        val receiverBuilder = OwnLocalReceiver.Builder().setCallbackPath("/life-strategy/callback/google")
+        val receiverBuilder = OwnLocalReceiver.Builder().setCallbackPath("/$service/callback/google")
             .setHost(environment).setPort(8081)
 
         if (environment.contains("localhost")) {
